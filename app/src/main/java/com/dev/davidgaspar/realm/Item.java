@@ -8,32 +8,31 @@ import io.realm.annotations.RealmModule;
 public class Item extends RealmObject {
 
     @PrimaryKey
-    private long id;
-    private String mName;
-    private int mAge;
+    private long   mId;
+    private String mWord;
+    private String mMean;
 
-    public void setName(String name) {
-        this.mName = name;
+    public void setId(long id){
+        this.mId = id;
     }
 
-    public void setAge(int age) {
-        this.mAge = age;
+    public void setWord(String word) {
+        this.mWord = word;
     }
 
-    public String getName() {
-        return this.mName;
+    public void setMean(String mean) {
+        this.mMean = mean;
     }
-
-    public int getAge() {
-        return this.mAge;
-    }
-
-    public void setId(long newId){
-        this.id = newId;
-    }
-
 
     public long getId() {
-        return this.id;
+        return this.mId;
+    }
+
+    public String getWord() {
+        return this.mWord;
+    }
+
+    public String getMean() {
+        return this.mMean;
     }
 }
