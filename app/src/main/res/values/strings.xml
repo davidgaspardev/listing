@@ -3,7 +3,11 @@
 
     <string name="filename">database.realm</string>
 
-    <string name="edt_word">Word</string>
-    <string name="edt_mean">Mean</string>
+    <string name="edt_word">Word for dictionary</string>
+    <string name="edt_mean">Write the meaning of the word</string>
     <string name="btn_save">SAVE</string>
+
+    <string name="add">ADD</string>
+    <string name="add_item">Add Item</string>
+    <string name="err_edt">Sorry, but the text field is empty.</string>
 </resources>

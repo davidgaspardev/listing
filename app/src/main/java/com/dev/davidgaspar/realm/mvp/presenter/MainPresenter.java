@@ -33,8 +33,8 @@ public class MainPresenter implements IMainPresenter, View.OnClickListener {
     }
 
     @Override
-    public void actionSave(View btnSave) {
-        btnSave.setOnClickListener(this);
+    public void actionButton(View btn) {
+        btn.setOnClickListener(this);
     }
 
     @Override
@@ -45,17 +45,42 @@ public class MainPresenter implements IMainPresenter, View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        if(!mView.getEdtWord().equals("") || !mView.getEdtMean().equals("")) {
+        switch (view.getId()) {
+            case R.id.btn_add:
 
-            mItem.setWord(mView.getEdtWord());
-            mItem.setMean(mView.getEdtMean());
+                if(mView.getItemAddVisible() != View.VISIBLE) {
 
-            mRealm.insertData(mItem);
+                    mView.showAddLayout(View.VISIBLE);
+                    mView.showAddButton(View.GONE);
 
-            mView.showUpdatedList(mRealm.selectAllData());
+                }
 
-            mItem.clean();
-            mView.setEdtText(mItem.getWord(), mItem.getMean());
+                break;
+
+            case R.id.btn_save:
+
+                if(!mView.getEdtWord().equals("") || !mView.getEdtMean().equals("")) {
+
+                    mItem.setWord(mView.getEdtWord());
+                    mItem.setMean(mView.getEdtMean());
+
+                    mRealm.insertData(mItem);
+
+                    mView.showUpdatedList(mRealm.selectAllData());
+
+                    mItem.clean();
+                    mView.setEdtText(mItem.getWord(), mItem.getMean());
+
+                    mView.showAddLayout(View.GONE);
+                    mView.showAddButton(View.VISIBLE);
+
+                }else {
+
+                    mView.showMsgToast(mView.getString(R.string.err_edt));
+
+                }
+
+                break;
         }
 
     }

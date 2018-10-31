@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 // My packages
 import com.dev.davidgaspar.realm.R;
@@ -24,14 +26,14 @@ import java.util.List;
 
 public class MainView extends Fragment implements IMainView {
 
-    private final String LOG_TAG = MainView.class.getCanonicalName();
-
     private IMainPresenter presenter;
 
     private EditText edtWord;
     private EditText edtMean;
-    private Button   btnSave;
+    private View   btnSave;
+    private View   btnAdd;
     private ListView lsvList;
+    private LinearLayout llyAdd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,20 +51,35 @@ public class MainView extends Fragment implements IMainView {
         edtMean = (EditText) rootView.findViewById(R.id.mean);
         presenter.checkSupportEdtHint();
 
-        btnSave = (Button)   rootView.findViewById(R.id.save);
-        presenter.actionSave(btnSave);
+        btnSave = rootView.findViewById(R.id.btn_save);
+        presenter.actionButton(btnSave);
+
+        btnAdd  = rootView.findViewById(R.id.btn_add);
+        presenter.actionButton(btnAdd);
+
 
         lsvList = (ListView) rootView.findViewById(R.id.list);
         presenter.startList();
+
+        llyAdd  = (LinearLayout) rootView.findViewById(R.id.lly_add);
 
         return rootView;
 
     }
 
+    @Override
+    public void showAddLayout(int visibility) {
+        llyAdd.setVisibility(visibility);
+    }
 
     @Override
-    public void showItemAdd() {
+    public void showAddButton(int visibility) {
+        btnAdd.setVisibility(visibility);
+    }
 
+    @Override
+    public void showMsgToast(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -81,6 +98,11 @@ public class MainView extends Fragment implements IMainView {
     public void setEdtText(String txtWord, String txtMean) {
         edtWord.setText(txtWord);
         edtMean.setText(txtMean);
+    }
+
+    @Override
+    public int getItemAddVisible() {
+        return llyAdd.getVisibility();
     }
 
     @Override

@@ -24,10 +24,14 @@ public interface MVP {
 
     interface IMainView {
 
-        void showItemAdd();
+        void showAddLayout(int visibility);
+        void showAddButton(int visibility);
+        void showMsgToast(String msg);
         void showUpdatedList(List<IItem> items);
         void setEdtHint(String txtWord, String txtMean);
         void setEdtText(String txtWord, String txtMean);
+
+        int getItemAddVisible();
 
         String getEdtWord();
         String getEdtMean();
@@ -40,7 +44,7 @@ public interface MVP {
     interface IMainPresenter {
 
         void checkSupportEdtHint();
-        void actionSave(View btnSave);
+        void actionButton(View btn);
         void startList();
     }
 
