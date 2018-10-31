@@ -3,7 +3,7 @@ package com.dev.davidgaspar.realm;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.dev.davidgaspar.realm.mvp.view.MainFragment;
+import com.dev.davidgaspar.realm.mvp.view.MainView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if(savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, new MainFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new MainView()).commit();
         }
 
     }

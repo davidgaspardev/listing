@@ -9,15 +9,15 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.dev.davidgaspar.realm.R;
-import com.dev.davidgaspar.realm.mvp.modal.Item;
+import com.dev.davidgaspar.realm.mvp.MVP.IItem;
 
 import java.util.List;
 
-public class ItemAdapter extends ArrayAdapter<Item> {
+public class ItemAdapter extends ArrayAdapter<IItem> {
 
     private Context mContext;
 
-    public ItemAdapter(List<Item> data, Context context) {
+    public ItemAdapter(List<IItem> data, Context context) {
         super(context, 0, data);
         this.mContext = context;
     }
@@ -28,7 +28,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 
         View itemView = convertView;
 
-        Item item     = getItem(position);
+        IItem item     = getItem(position);
         assert item != null;
 
         if(itemView == null) {
