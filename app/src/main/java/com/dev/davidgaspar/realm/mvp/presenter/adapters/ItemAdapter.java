@@ -1,4 +1,4 @@
-package com.dev.davidgaspar.realm.presenter.adapters;
+package com.dev.davidgaspar.realm.mvp.presenter.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.dev.davidgaspar.realm.R;
-import com.dev.davidgaspar.realm.modal.Item;
+import com.dev.davidgaspar.realm.mvp.modal.Item;
 
 import java.util.List;
 
@@ -34,6 +34,10 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         if(itemView == null) {
             itemView = LayoutInflater.from(mContext).inflate(R.layout.list_item, container, false);
         }
+
+        TextView txtId   = (TextView) itemView.findViewById(R.id.txt_id);
+        String id = "Id: " + item.getId();
+        txtId.setText(id);
 
         TextView txtWord = (TextView) itemView.findViewById(R.id.txt_word);
         txtWord.setText(item.getWord());

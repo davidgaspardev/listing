@@ -1,4 +1,4 @@
-package com.dev.davidgaspar.realm.modal;
+package com.dev.davidgaspar.realm.mvp.modal;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
