@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Realm</string>
 
+    <string name="filename">database.realm</string>
+
     <string name="edt_word">Word</string>
     <string name="edt_mean">Mean</string>
     <string name="btn_save">SAVE</string>

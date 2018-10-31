@@ -7,13 +7,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.dev.davidgaspar.realm.modal.Item;
+import com.dev.davidgaspar.realm.presenter.adapters.ItemAdapter;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,11 +28,15 @@ public class MainActivity extends AppCompatActivity {
     private EditText edtWord;
     private EditText edtMean;
     private Button   btnSave;
+    private ListView lsvList;
+
+    private Realm    realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startRealm(getString(R.string.filename));
 
         edtWord = (EditText) findViewById(R.id.word);
         edtMean = (EditText) findViewById(R.id.mean);
@@ -36,34 +45,16 @@ public class MainActivity extends AppCompatActivity {
         btnSave = (Button)   findViewById(R.id.save);
         buildClickEvent();
 
-        //Realm.init(this);
+        lsvList = (ListView) findViewById(R.id.list);
+        updateList();
 
-        //RealmConfiguration config = new RealmConfiguration.Builder()
-        //        .name("database.realm")
-        //        .schemaVersion(2)
-        //        .modules(new Item())
-        //        .build();
+    }
 
-        //Realm realm = Realm.getInstance(config);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
-        //Log.w(LOG_TAG, "Realm | Started " + realm);
-
-        //Item item = new Item();
-        //item.setId(new Date().getTime());
-        //item.setName("David");
-        //item.setAge(19);
-
-        //realm.beginTransaction();
-        //realm.copyToRealm(item);
-        //realm.commitTransaction();
-        //realm.deleteAll();
-
-        //RealmResults<Item> results = realm.where(Item.class).findAll();
-
-        //Log.w(LOG_TAG, "Realm | Reading " + results.toString());
-
-        //realm.close();
-
+        realm.close();
     }
 
     private void checkEdtHint() {
@@ -87,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 if(!word.equals("") && !mean.equals("")) {
 
                     dataToRealm(word, mean);
+                    updateList();
 
                 }else {
                     Toast.makeText(MainActivity.this, "Not have word", Toast.LENGTH_SHORT).show();
@@ -98,22 +90,38 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void updateList() {
+
+        ItemAdapter adapter = new ItemAdapter(dataFromRealm(), getApplicationContext());
+        lsvList.setAdapter(adapter);
+
+    }
+
+    private void startRealm(String filename) {
+        Realm.init(this);
+
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .name(filename)
+                .schemaVersion(1)
+                .modules(new Item())
+                .build();
+
+        realm = Realm.getInstance(config);
+
+    }
+
+    private List<Item> dataFromRealm() {
+        RealmResults<Item> results = realm.where(Item.class).findAll();
+
+        return new ArrayList<>(results);
+    }
+
     private void dataToRealm(String word, String mean) {
 
         Item item = new Item();
         item.setId(new Date().getTime());
         item.setWord(word);
         item.setMean(mean);
-
-        Realm.init(this);
-
-        RealmConfiguration config = new RealmConfiguration.Builder()
-                .name("database.realm")
-                .schemaVersion(1)
-                .modules(new Item())
-                .build();
-
-        Realm realm = Realm.getInstance(config);
 
         realm.beginTransaction();
         realm.copyToRealm(item);
@@ -123,11 +131,12 @@ public class MainActivity extends AppCompatActivity {
 
         Log.w(LOG_TAG, " Realm | " + results.toString());
 
-        realm.close();
 
         edtWord.setText(null);
         edtMean.setText(null);
     }
+
+
 
 
 }
