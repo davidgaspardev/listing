@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.dev.davidgaspar.realm.R;
+import com.dev.davidgaspar.realm.mvp.MVP.IMainPresenter;
 import com.dev.davidgaspar.realm.mvp.MVP.IItem;
 
 import java.util.List;
@@ -16,10 +17,12 @@ import java.util.List;
 public class ItemAdapter extends ArrayAdapter<IItem> {
 
     private Context mContext;
+    private IMainPresenter mPresenter;
 
-    public ItemAdapter(List<IItem> data, Context context) {
+    public ItemAdapter(List<IItem> data, Context context, IMainPresenter presenter) {
         super(context, 0, data);
         this.mContext = context;
+        this.mPresenter = presenter;
     }
 
     @NonNull
@@ -28,7 +31,7 @@ public class ItemAdapter extends ArrayAdapter<IItem> {
 
         View itemView = convertView;
 
-        IItem item     = getItem(position);
+        final IItem item     = getItem(position);
         assert item != null;
 
         if(itemView == null) {
@@ -39,6 +42,15 @@ public class ItemAdapter extends ArrayAdapter<IItem> {
         String id = "Id: " + item.getId();
         txtId.setText(id);
 
+        txtId.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mPresenter.deleteItem(item.getId());
+            }
+
+        });
+
         TextView txtWord = (TextView) itemView.findViewById(R.id.txt_word);
         txtWord.setText(item.getWord());
 
@@ -48,6 +60,4 @@ public class ItemAdapter extends ArrayAdapter<IItem> {
         return itemView;
 
     }
-
-
 }

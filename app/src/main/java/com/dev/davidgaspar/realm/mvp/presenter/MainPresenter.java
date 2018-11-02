@@ -43,6 +43,12 @@ public class MainPresenter implements IMainPresenter, View.OnClickListener {
     }
 
     @Override
+    public void deleteItem(long id) {
+        mRealm.deleteData(id);
+        mView.showUpdatedList(mRealm.selectAllData());
+    }
+
+    @Override
     public void onClick(View view) {
 
         switch (view.getId()) {

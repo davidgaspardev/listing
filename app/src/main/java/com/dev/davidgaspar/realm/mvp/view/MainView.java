@@ -30,11 +30,10 @@ public class MainView extends Fragment implements IMainView {
 
     private EditText edtWord;
     private EditText edtMean;
-    private View   btnSave;
-    private View   btnAdd;
+    private View     btnSave; // Button
+    private View     btnAdd;  // Button
+    private View     llyAdd;  // LinearLayout
     private ListView lsvList;
-    private LinearLayout llyAdd;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +46,8 @@ public class MainView extends Fragment implements IMainView {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        edtWord = (EditText) rootView.findViewById(R.id.word);
-        edtMean = (EditText) rootView.findViewById(R.id.mean);
+        edtWord = rootView.findViewById(R.id.word);
+        edtMean = rootView.findViewById(R.id.mean);
         presenter.checkSupportEdtHint();
 
         btnSave = rootView.findViewById(R.id.btn_save);
@@ -58,10 +57,10 @@ public class MainView extends Fragment implements IMainView {
         presenter.actionButton(btnAdd);
 
 
-        lsvList = (ListView) rootView.findViewById(R.id.list);
+        lsvList = rootView.findViewById(R.id.list);
         presenter.startList();
 
-        llyAdd  = (LinearLayout) rootView.findViewById(R.id.lly_add);
+        llyAdd  = rootView.findViewById(R.id.lly_add);
 
         return rootView;
 
@@ -84,7 +83,7 @@ public class MainView extends Fragment implements IMainView {
 
     @Override
     public void showUpdatedList(List<IItem> items) {
-        ItemAdapter itemAdapter = new ItemAdapter(items, getContext());
+        ItemAdapter itemAdapter = new ItemAdapter(items, getContext(), presenter);
         lsvList.setAdapter(itemAdapter);
     }
 

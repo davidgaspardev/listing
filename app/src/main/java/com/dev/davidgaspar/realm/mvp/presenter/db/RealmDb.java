@@ -49,10 +49,13 @@ public class RealmDb implements IRealmDb {
     }
 
     @Override
-    public IItem selectData(long id) {
+    public void deleteData(long id) {
 
-        return (IItem) this.mRealm.where(Item.class).equalTo("mId", id).findFirst();
-
+        this.mRealm.beginTransaction();
+        IItem results = this.mRealm.where(Item.class).equalTo("mId", id).findFirst();
+        assert results != null;
+        ((Item) results).deleteFromRealm();
+        this.mRealm.commitTransaction();
     }
 
     @Override

@@ -46,6 +46,8 @@ public interface MVP {
         void checkSupportEdtHint();
         void actionButton(View btn);
         void startList();
+        void deleteItem(long id);
+
     }
 
     interface IRealmDb {
@@ -54,7 +56,7 @@ public interface MVP {
 
         void insertData(IItem item);
 
-        IItem selectData(long id);
+        void deleteData(long id);
         List<IItem> selectAllData();
 
     }
