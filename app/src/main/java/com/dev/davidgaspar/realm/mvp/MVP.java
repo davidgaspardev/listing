@@ -9,12 +9,15 @@ public interface MVP {
 
     interface IItem {
 
+        // Methods getter/setter Id
         void setId(long id);
         long getId();
 
+        // Method getter/setter Word
         void setWord(String word);
         String getWord();
 
+        // Method getter/setter Mean
         void setMean(String mean);
         String getMean();
 
@@ -24,18 +27,20 @@ public interface MVP {
 
     interface IMainView {
 
+        // Visibility methods
         void showAddLayout(int visibility);
         void showAddButton(int visibility);
         void showMsgToast(String msg);
         void showUpdatedList(List<IItem> items);
+
+        // Methods setters
         void setEdtHint(String txtWord, String txtMean);
         void setEdtText(String txtWord, String txtMean);
 
+        // Methods getters
         int getItemAddVisible();
-
         String getEdtWord();
         String getEdtMean();
-
         Context getContext();
         String  getString(int resId);
 

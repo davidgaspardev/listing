@@ -26,14 +26,15 @@ import java.util.List;
 
 public class MainView extends Fragment implements IMainView {
 
+    // Atributes
     private IMainPresenter presenter;
-
     private EditText edtWord;
     private EditText edtMean;
     private View     btnSave; // Button
     private View     btnAdd;  // Button
     private View     llyAdd;  // LinearLayout
     private ListView lsvList;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,6 @@ public class MainView extends Fragment implements IMainView {
 
         btnAdd  = rootView.findViewById(R.id.btn_add);
         presenter.actionButton(btnAdd);
-
 
         lsvList = rootView.findViewById(R.id.list);
         presenter.startList();
